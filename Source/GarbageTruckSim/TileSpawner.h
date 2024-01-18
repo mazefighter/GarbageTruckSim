@@ -21,6 +21,16 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TArray<TSubclassOf<AActor>> ActorsToSpawn;
+
+
+	UPROPERTY(EditAnywhere, Category= "TilePositions")
+	float TileWidth = 3600;
+
+	UPROPERTY(EditAnywhere, Category= "TilePositions")
+	int SpawnTilesSum = 10;
+
+	UPROPERTY(EditAnywhere, Category= "TilePositions")
+	int SpawnTilesBehind = 4;
 	
 	FVector nextTilePosition;
 
@@ -31,10 +41,13 @@ protected:
 	virtual void BeginPlay() override;
 
 	void SpawnTile();
+	void RemoveFirstTile();
 
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	UFUNCTION(BlueprintCallable) void MoveSpawnTrigger();
 
 		
 };
