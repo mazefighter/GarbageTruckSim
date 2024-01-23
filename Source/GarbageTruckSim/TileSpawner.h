@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "FGarbageInfo.h"
 #include "Components/ActorComponent.h"
 #include "TileSpawner.generated.h"
 
@@ -23,7 +24,7 @@ public:
 	TArray<TSubclassOf<AActor>> ActorsToSpawn;
 
 	UPROPERTY(EditAnywhere, Category= "Garbage")
-	TArray<UStaticMesh*> GarbageMeshes;
+	TArray<FGarbageInfo> GarbageMeshes;
 
 	UPROPERTY(EditAnywhere, Category= "Garbage")
 	float MinGarbage = 5;
@@ -32,9 +33,7 @@ public:
 
 	UPROPERTY(EditAnywhere, Category= "Garbage")
 	FCollisionProfileName CollisionProfile;
-
-	UPROPERTY(EditAnywhere, Category= "Garbage")
-	float Mass;
+	
 
 	UPROPERTY(EditAnywhere, Category= "TilePositions")
 	float TileWidth = 3600;

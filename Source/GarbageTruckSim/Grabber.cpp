@@ -48,7 +48,7 @@ void UGrabber::SetupInputComponent()
 	}
 }
 
-void UGrabber::Grab()
+float UGrabber::Grab()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Grab!"))
 	FHitResult Hit;
@@ -58,14 +58,28 @@ void UGrabber::Grab()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Grab Hit!"))
 		MyPhysicsHandle->GrabComponentAtLocation(Hit.GetComponent(), NAME_None, GetEndLineTrace());
+		return MyPhysicsHandle->GrabbedComponent->BodyInstance.GetBodyMass();
 	}
+		return 0;
 }
+
+
 
 void UGrabber::GrabEnd()
 {
 	if (MyPhysicsHandle->GrabbedComponent)
 	{
 		MyPhysicsHandle->ReleaseComponent();
+	}
+}
+
+void UGrabber::Throw()
+{
+	if (MyPhysicsHandle->GrabbedComponent)
+	{
+		UPrimitiveComponent* throwObject = MyPhysicsHandle->GrabbedComponent;
+		GrabEnd();
+		throwObject->AddForce(FVector(GetPlayerPoint().Rotator().Vector() * (1000000000 / throwObject->BodyInstance.GetBodyMass())));
 	}
 }
 

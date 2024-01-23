@@ -62,12 +62,14 @@ void UTileSpawner::SpawnGarbageOnTile()
 	{
 		for (int i = 0; i < FMath::RandRange(MinGarbage, MaxGarbage); ++i)
 		{
+			float RandMesh = FMath::RandRange(0, GarbageMeshes.Num()-1);
 			AStaticMeshActor* NewMesh = GetWorld()->SpawnActor<AStaticMeshActor>(nextTilePosition + FVector(FMath::RandRange(-1700,1700),FMath::RandBool()?-450:450,100), FRotator(FMath::RandRange(0,180), 0, 0));
 			NewMesh-> SetMobility(EComponentMobility::Movable);
-			NewMesh->GetStaticMeshComponent()->SetStaticMesh(GarbageMeshes[FMath::RandRange(0, GarbageMeshes.Num()-1)]);
+			NewMesh->GetStaticMeshComponent()->SetStaticMesh(GarbageMeshes[RandMesh].GarbageMesh);
 			NewMesh->GetStaticMeshComponent()->SetSimulatePhysics(true);
 			NewMesh->GetStaticMeshComponent()->SetGenerateOverlapEvents(true);
 			NewMesh->GetStaticMeshComponent()->SetCollisionProfileName(CollisionProfile.Name, true);
+			NewMesh->GetStaticMeshComponent()->BodyInstance.SetMassOverride(GarbageMeshes[RandMesh].Mass, true);
 			NewMesh->Tags.Add("Garbage");
 		
 		}

@@ -27,8 +27,9 @@ public:
 	void SetupInputComponent();
 	
 	
-	UFUNCTION(BlueprintCallable) void Grab();
+	UFUNCTION(BlueprintCallable) float Grab();
 	UFUNCTION(BlueprintCallable) void GrabEnd();
+	UFUNCTION(BlueprintCallable) void Throw();
 	
 	FVector GetEndLineTrace();
 	FTransform GetPlayerPoint();
