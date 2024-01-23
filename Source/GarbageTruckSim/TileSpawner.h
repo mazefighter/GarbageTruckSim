@@ -33,6 +33,9 @@ public:
 	UPROPERTY(EditAnywhere, Category= "Garbage")
 	FCollisionProfileName CollisionProfile;
 
+	UPROPERTY(EditAnywhere, Category= "Garbage")
+	float Mass;
+
 	UPROPERTY(EditAnywhere, Category= "TilePositions")
 	float TileWidth = 3600;
 
