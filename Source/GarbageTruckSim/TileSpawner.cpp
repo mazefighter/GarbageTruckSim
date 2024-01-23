@@ -4,6 +4,7 @@
 #include "TileSpawner.h"
 
 #include "Components/BoxComponent.h"
+#include "Engine/StaticMeshActor.h"
 
 // Sets default values for this component's properties
 UTileSpawner::UTileSpawner()
@@ -43,13 +44,38 @@ void UTileSpawner::BeginPlay()
 void UTileSpawner::SpawnTile()
 {
 	spawnedActors.Add(GetWorld()->SpawnActor<AActor>(ActorsToSpawn[FMath::RandRange(0, ActorsToSpawn.Num()-1)], nextTilePosition, FRotator(0,FMath::RandBool()?0:180,0)));
+	SpawnGarbageOnTile();
 	nextTilePosition.X += TileWidth;
+	
+	
 }
 
 void UTileSpawner::RemoveFirstTile()
 {
 	spawnedActors[0]->Destroy();
 	spawnedActors.RemoveAt(0);
+}
+
+void UTileSpawner::SpawnGarbageOnTile()
+{
+	if (GarbageMeshes.Num() > 0)
+	{
+		for (int i = 0; i < FMath::RandRange(MinGarbage, MaxGarbage); ++i)
+		{
+			AStaticMeshActor* NewMesh = GetWorld()->SpawnActor<AStaticMeshActor>(nextTilePosition + FVector(FMath::RandRange(-1700,1700),FMath::RandBool()?-450:450,100), FRotator(FMath::RandRange(0,180), 0, 0));
+			NewMesh-> SetMobility(EComponentMobility::Movable);
+			NewMesh->GetStaticMeshComponent()->SetStaticMesh(GarbageMeshes[FMath::RandRange(0, GarbageMeshes.Num()-1)]);
+			NewMesh->GetStaticMeshComponent()->SetSimulatePhysics(true);
+			NewMesh->GetStaticMeshComponent()->SetCollisionProfileName(CollisionProfile.Name, true);
+		
+		}
+		
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("No GarbageMesh Defined"));
+	}
+	
 }
 
 

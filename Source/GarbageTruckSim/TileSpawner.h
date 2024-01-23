@@ -22,6 +22,16 @@ public:
 	UPROPERTY(EditAnywhere)
 	TArray<TSubclassOf<AActor>> ActorsToSpawn;
 
+	UPROPERTY(EditAnywhere, Category= "Garbage")
+	TArray<UStaticMesh*> GarbageMeshes;
+
+	UPROPERTY(EditAnywhere, Category= "Garbage")
+	float MinGarbage = 5;
+	UPROPERTY(EditAnywhere, Category= "Garbage")
+	float MaxGarbage = 20;
+
+	UPROPERTY(EditAnywhere, Category= "Garbage")
+	FCollisionProfileName CollisionProfile;
 
 	UPROPERTY(EditAnywhere, Category= "TilePositions")
 	float TileWidth = 3600;
@@ -42,6 +52,7 @@ protected:
 
 	void SpawnTile();
 	void RemoveFirstTile();
+	void SpawnGarbageOnTile();
 
 public:	
 	// Called every frame
