@@ -30,9 +30,7 @@ public:
 	float MinGarbage = 5;
 	UPROPERTY(EditAnywhere, Category= "Garbage")
 	float MaxGarbage = 20;
-
-	UPROPERTY(EditAnywhere, Category= "Garbage")
-	FCollisionProfileName CollisionProfile;
+	
 	
 
 	UPROPERTY(EditAnywhere, Category= "TilePositions")

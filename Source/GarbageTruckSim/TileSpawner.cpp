@@ -67,10 +67,10 @@ void UTileSpawner::SpawnGarbageOnTile()
 			NewMesh-> SetMobility(EComponentMobility::Movable);
 			NewMesh->GetStaticMeshComponent()->SetStaticMesh(GarbageMeshes[RandMesh].GarbageMesh);
 			NewMesh->GetStaticMeshComponent()->SetSimulatePhysics(true);
-			NewMesh->GetStaticMeshComponent()->SetGenerateOverlapEvents(true);
-			NewMesh->GetStaticMeshComponent()->SetCollisionProfileName(CollisionProfile.Name, true);
+			NewMesh->GetStaticMeshComponent()->SetGenerateOverlapEvents(true); 
 			NewMesh->GetStaticMeshComponent()->BodyInstance.SetMassOverride(GarbageMeshes[RandMesh].Mass, true);
-			NewMesh->Tags.Add("Garbage");
+			NewMesh->GetStaticMeshComponent()->BodyInstance.UpdateMassProperties();
+			NewMesh->Tags.Add("Grab");
 		
 		}
 		

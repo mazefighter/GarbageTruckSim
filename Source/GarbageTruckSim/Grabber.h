@@ -20,6 +20,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	float TraceLength = 200.f;
 
+	UPROPERTY(EditAnywhere)
+	FCollisionProfileName CollisionProfile;
+
 	UPhysicsHandleComponent* MyPhysicsHandle = nullptr;
 
 	UInputComponent* MyInputComponent = nullptr;

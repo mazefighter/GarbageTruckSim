@@ -53,11 +53,14 @@ float UGrabber::Grab()
 	UE_LOG(LogTemp, Warning, TEXT("Grab!"))
 	FHitResult Hit;
 	FCollisionQueryParams TraceParams(FName(TEXT("")), false, GetOwner());
-	GetWorld() -> LineTraceSingleByObjectType(Hit, GetPlayerPoint().GetLocation(), GetEndLineTrace(), FCollisionObjectQueryParams(ECC_PhysicsBody), TraceParams);
-	if (Hit.GetActor())
+	GetWorld() -> LineTraceSingleByObjectType(Hit, GetPlayerPoint().GetLocation(), GetEndLineTrace(), FCollisionObjectQueryParams(), TraceParams);
+	if (Hit.GetActor() && (Hit.GetComponent()->ComponentTags.Contains("Grab") || Hit.GetActor()->Tags.Contains("Grab")))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Grab Hit!"))
 		MyPhysicsHandle->GrabComponentAtLocation(Hit.GetComponent(), NAME_None, GetEndLineTrace());
+		Hit.GetComponent()->SetSimulatePhysics(true);
+		Hit.GetComponent()->SetGenerateOverlapEvents(true);
+		Hit.GetComponent()->SetCollisionProfileName(CollisionProfile.Name, true);
 		return MyPhysicsHandle->GrabbedComponent->BodyInstance.GetBodyMass();
 	}
 		return 0;
@@ -79,7 +82,7 @@ void UGrabber::Throw()
 	{
 		UPrimitiveComponent* throwObject = MyPhysicsHandle->GrabbedComponent;
 		GrabEnd();
-		throwObject->AddForce(FVector(GetPlayerPoint().Rotator().Vector() * (1000000000 / throwObject->BodyInstance.GetBodyMass())));
+		throwObject->AddForce(FVector(GetPlayerPoint().Rotator().Vector() * (150000000 / throwObject->BodyInstance.GetBodyMass())));
 	}
 }
 
