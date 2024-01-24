@@ -23,6 +23,7 @@ void UTileSpawner::BeginPlay()
 	Super::BeginPlay();
 	nextTilePosition = FVector(-(SpawnTilesBehind*TileWidth),0,0);
 	GetOwner()->FindComponentByTag<UBoxComponent>("BackWall")->SetRelativeLocation(FVector(-(SpawnTilesBehind*TileWidth), 0, 0));
+	GetOwner()->FindComponentByTag<UBoxComponent>("FrontWall")->SetRelativeLocation(FVector(((SpawnTilesSum - SpawnTilesBehind - 2)*TileWidth), 0, 0));
 
 	if (ActorsToSpawn.Num() > 0)
 	{

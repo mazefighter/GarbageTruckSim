@@ -82,7 +82,7 @@ void UGrabber::Throw()
 	{
 		UPrimitiveComponent* throwObject = MyPhysicsHandle->GrabbedComponent;
 		GrabEnd();
-		throwObject->AddForce(FVector(GetPlayerPoint().Rotator().Vector() * (150000000 / throwObject->BodyInstance.GetBodyMass())));
+		throwObject->AddForce(FVector(GetPlayerPoint().Rotator().Vector() * (1000000 - throwObject->BodyInstance.GetBodyMass() * 1000)));
 	}
 }
 
